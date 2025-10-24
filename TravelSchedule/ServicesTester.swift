@@ -10,7 +10,7 @@ final class ServicesTester {
             serverURL: try Servers.Server1.url(),
             transport: URLSessionTransport()
         )
-        self.apikey = "API_KEY"
+        self.apikey = "3fabcef5-5915-4b34-bd2e-11a53bb31588"
     }
     
     // MARK: - Public
