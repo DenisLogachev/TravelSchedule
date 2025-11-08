@@ -13,15 +13,15 @@ struct SearchField: View {
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
                 .padding(.leading, Constants.iconPadding)
             TextField("Введите запрос", text: $text)
                 .disableAutocorrection(true)
                 .autocapitalization(.words)
                 .padding(.vertical, Constants.verticalPadding)
         }
-        .background(DS.surfaceSecondary)
-        .cornerRadius(Constants.cornerRadius)
+        .background(DesignSystem.surfaceSecondary)
+        .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
     }
 }
 

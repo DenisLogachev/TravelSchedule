@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct CarriersListView: View {
-    
+    // MARK: - Properties
     let fromCity: String
     let toCity: String
     @Binding var path: [Route]
     var isPresented: Binding<Bool>?
     @Binding var filters: RouteFilters
     
+    // MARK: - Private Properties
     private let allRoutes: [CarrierRoute] = [
         CarrierRoute(
             carrierName: "РЖД",
@@ -65,6 +66,7 @@ struct CarriersListView: View {
         )
     ]
     
+    // MARK: - Computed Properties
     private var routeTitle: String {
         return "\(fromCity) → \(toCity)"
     }
@@ -83,6 +85,22 @@ struct CarriersListView: View {
         }
     }
     
+    // MARK: - Constants
+    private enum Constants {
+        static let horizontalPadding: CGFloat = 16
+        static let verticalPadding: CGFloat = 16
+        static let titleFontSize: CGFloat = 24
+        static let buttonFontSize: CGFloat = 17
+        static let buttonHeight: CGFloat = 60
+        static let buttonCornerRadius: CGFloat = 16
+        static let buttonSpacing: CGFloat = 8
+        static let indicatorSize: CGFloat = 8
+        static let emptyStateTopPadding: CGFloat = 100
+        static let emptyStateHeight: CGFloat = 300
+        static let routesBottomPadding: CGFloat = 100
+    }
+    
+    // MARK: - Private Methods
     private func isTimeInRange(_ departureTime: String, timeRange: TimeRange) -> Bool {
         let routeMinutes = timeToMinutes(departureTime)
         guard routeMinutes >= 0 else { return false }
@@ -109,20 +127,7 @@ struct CarriersListView: View {
         return components[0] * 60 + components[1]
     }
     
-    private enum Constants {
-        static let horizontalPadding: CGFloat = 16
-        static let verticalPadding: CGFloat = 16
-        static let titleFontSize: CGFloat = 24
-        static let buttonFontSize: CGFloat = 17
-        static let buttonHeight: CGFloat = 60
-        static let buttonCornerRadius: CGFloat = 16
-        static let buttonSpacing: CGFloat = 8
-        static let indicatorSize: CGFloat = 8
-        static let emptyStateTopPadding: CGFloat = 100
-        static let emptyStateHeight: CGFloat = 300
-        static let routesBottomPadding: CGFloat = 100
-    }
-    
+    // MARK: - Body
     var body: some View {
         SelectionScreen(title: "", onDismiss: {
             isPresented?.wrappedValue = false
@@ -131,7 +136,7 @@ struct CarriersListView: View {
                 VStack(spacing: 0) {
                     Text(routeTitle)
                         .font(.system(size: Constants.titleFontSize, weight: .semibold))
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(3)
                         .padding([.horizontal, .top, .bottom], Constants.horizontalPadding)
@@ -141,7 +146,7 @@ struct CarriersListView: View {
                             VStack {
                                 Text("Вариантов нет")
                                     .font(.system(size: Constants.titleFontSize, weight: .bold))
-                                    .foregroundColor(.primary)
+                                    .foregroundStyle(.primary)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                     .padding(.top, Constants.emptyStateTopPadding)
                             }
@@ -166,17 +171,17 @@ struct CarriersListView: View {
                     HStack(spacing: Constants.buttonSpacing) {
                         Text("Уточнить время")
                             .font(.system(size: Constants.buttonFontSize, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                         
                         if filters.hasActiveFilters {
                             Circle()
-                                .fill(DS.accentColor)
+                                .fill(DesignSystem.accentColor)
                                 .frame(width: Constants.indicatorSize, height: Constants.indicatorSize)
                         }
                     }
                     .frame(maxWidth: .infinity, minHeight: Constants.buttonHeight)
-                    .background(DS.primaryAccent)
-                    .cornerRadius(Constants.buttonCornerRadius)
+                    .background(DesignSystem.primaryAccent)
+                    .clipShape(RoundedRectangle(cornerRadius: Constants.buttonCornerRadius))
                 }
                 .padding([.horizontal, .top, .bottom], Constants.horizontalPadding)
             }

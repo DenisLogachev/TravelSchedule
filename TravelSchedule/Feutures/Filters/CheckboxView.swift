@@ -29,7 +29,7 @@ struct CheckboxView: View {
                 
                 Image(systemName: "checkmark")
                     .font(.system(size: Constants.checkmarkFontSize, weight: .bold))
-                    .foregroundColor(checkmarkColor)
+                    .foregroundStyle(checkmarkColor)
             }
         }
     }

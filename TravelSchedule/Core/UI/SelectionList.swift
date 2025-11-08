@@ -65,12 +65,12 @@ struct SelectionList: View {
                 .padding([.horizontal, .top], Constants.horizontalPadding)
             
             ZStack {
-                DS.surface.ignoresSafeArea()
+                DesignSystem.surface.ignoresSafeArea()
                 
                 if showEmptyMessage {
                     Text(emptyMessage)
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.top, Constants.topPadding)
                 } else {
@@ -91,7 +91,7 @@ struct SelectionList: View {
                 }
             }
         }
-        .onChange(of: searchText) { _, newValue in
+        .onChange(of: searchText) { newValue in
             debounceTask?.cancel()
             debounceTask = Task {
                 try? await Task.sleep(nanoseconds: UInt64(Constants.debounceDelay * 1_000_000_000))

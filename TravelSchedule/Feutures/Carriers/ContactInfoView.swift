@@ -7,17 +7,17 @@ struct ContactInfoView: View {
     private enum Constants {
         static let titleFontSize: CGFloat = 17
         static let valueFontSize: CGFloat = 12
-        static let spacing: CGFloat = 8
+        static let spacing: CGFloat = 0
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.spacing) {
             Text(title)
                 .font(.system(size: Constants.titleFontSize))
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             Text(value)
                 .font(.system(size: Constants.valueFontSize))
-                .foregroundColor(.blue)
+                .foregroundStyle(DesignSystem.primaryAccent)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

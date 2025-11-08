@@ -21,7 +21,7 @@ struct MainView: View {
     var body: some View {
         HStack(spacing: Constants.hStackSpacing) {
             VStack(spacing: 0) {
-                CityButton( 
+                CityButton(
                     title: fromCity,
                     placeholder: "Откуда",
                     action: showFrom
@@ -34,12 +34,12 @@ struct MainView: View {
                 )
             }
             .background(Color.white)
-            .cornerRadius(Constants.cornerRadius)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
             
             Button(action: swapCities) {
                 Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.system(size: Constants.swapButtonFontSize, weight: .medium))
-                    .foregroundColor(DS.primaryAccent)
+                    .foregroundStyle(DesignSystem.primaryAccent)
                     .frame(width: Constants.swapButtonSize, height: Constants.swapButtonSize)
                     .background(Color.white)
                     .clipShape(Circle())
@@ -52,8 +52,8 @@ struct MainView: View {
             y: Constants.shadowY
         )
         .padding(Constants.padding)
-        .background(DS.primaryAccent)
-        .cornerRadius(Constants.containerCornerRadius)
+        .background(DesignSystem.primaryAccent)
+        .clipShape(RoundedRectangle(cornerRadius: Constants.containerCornerRadius))
     }
     
     private func swapCities() {

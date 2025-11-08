@@ -19,12 +19,21 @@ struct CarrierLogoView: View {
     var body: some View {
         if logoName.hasPrefix(Constants.sfSymbolPrefix) {
             let symbolName = String(logoName.dropFirst(Constants.sfSymbolPrefix.count))
-            Image(systemName: symbolName)
-                .font(.system(size: size * 0.63))
-                .foregroundColor(DS.primaryAccent)
-                .frame(width: size, height: size)
-                .background(Color.white)
-                .cornerRadius(size == Constants.largeLogoSize ? size / 2 : Constants.cornerRadius)
+            if size == Constants.largeLogoSize {
+                Image(systemName: symbolName)
+                    .font(.system(size: size * 0.63))
+                    .foregroundStyle(DesignSystem.primaryAccent)
+                    .frame(width: size, height: size)
+                    .background(Color.white)
+                    .clipShape(Circle())
+            } else {
+                Image(systemName: symbolName)
+                    .font(.system(size: size * 0.63))
+                    .foregroundStyle(DesignSystem.primaryAccent)
+                    .frame(width: size, height: size)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
+            }
         } else {
             Group {
                 if size == Constants.largeLogoSize {
