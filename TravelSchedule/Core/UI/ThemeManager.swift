@@ -2,41 +2,36 @@ import SwiftUI
 import Combine
 
 enum AppTheme: String, CaseIterable {
-    case light = "light"
-    case dark = "dark"
+    case light
+    case dark
     
     var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
-        case .light:
-            return .light
-        case .dark:
-            return .dark
+        case .light: .light
+        case .dark: .dark
         }
     }
     
     var displayName: String {
         switch self {
-        case .light:
-            return "Светлая"
-        case .dark:
-            return "Тёмная"
+        case .light: "Светлая"
+        case .dark: "Тёмная"
         }
     }
 }
 
-class ThemeManager: ObservableObject {
+final class ThemeManager: ObservableObject {
     static let shared = ThemeManager()
     
-    @Published var currentTheme: AppTheme {
+    static let appThemeKey = "appTheme"
+    
+    @Published var currentTheme: AppTheme = .light {
         didSet {
-            UserDefaults.standard.set(currentTheme.rawValue, forKey: "appTheme")
             applyTheme()
         }
     }
     
     private init() {
-        let savedTheme = UserDefaults.standard.string(forKey: "appTheme") ?? AppTheme.light.rawValue
-        self.currentTheme = AppTheme(rawValue: savedTheme) ?? .light
     }
     
     func applyTheme() {
@@ -47,6 +42,12 @@ class ThemeManager: ObservableObject {
                 .forEach { window in
                     window.overrideUserInterfaceStyle = self.currentTheme.userInterfaceStyle
                 }
+        }
+    }
+    
+    func updateTheme(from rawValue: String) {
+        if let theme = AppTheme(rawValue: rawValue) {
+            currentTheme = theme
         }
     }
 }

@@ -6,14 +6,23 @@ struct StoriesDataProvider {
         static let mainText = "Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text Text"
     }
     
-    private static let baseStories: [StoryItem] = [
-        StoryItem(id: 0, imageName: StoriesPictures.SP1, title: Constants.titleText, text: Constants.mainText),
-        StoryItem(id: 1, imageName: StoriesPictures.SP2, title: Constants.titleText, text: Constants.mainText),
-        StoryItem(id: 2, imageName: StoriesPictures.SP3, title: Constants.titleText, text: Constants.mainText),
-        StoryItem(id: 3, imageName: StoriesPictures.SP4, title: Constants.titleText, text: Constants.mainText),
-        StoryItem(id: 4, imageName: StoriesPictures.SP5, title: Constants.titleText, text: Constants.mainText),
-        StoryItem(id: 5, imageName: StoriesPictures.SP6, title: Constants.titleText, text: Constants.mainText)
+    private static let storyImageNames = [
+        StoriesPictures.story1,
+        StoriesPictures.story2,
+        StoriesPictures.story3,
+        StoriesPictures.story4,
+        StoriesPictures.story5,
+        StoriesPictures.story6
     ]
+    
+    private static let baseStories: [StoryItem] = (0..<6).map {
+        StoryItem(
+            id: $0,
+            imageName: storyImageNames[$0],
+            title: Constants.titleText,
+            text: Constants.mainText
+        )
+    }
     
     static var storiesForList: [StoryItem] {
         baseStories.map { StoryItem(id: $0.id, imageName: $0.imageName, title: $0.title) }

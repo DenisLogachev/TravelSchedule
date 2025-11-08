@@ -6,7 +6,7 @@ struct TermsOfServiceView: View {
     
     var body: some View {
         ZStack {
-            DS.surface.ignoresSafeArea()
+            DesignSystem.surface.ignoresSafeArea()
             
             WebView(isLoading: $isLoading)
             
@@ -19,7 +19,7 @@ struct TermsOfServiceView: View {
     }
 }
 
-struct WebView: UIViewRepresentable {
+private struct WebView: UIViewRepresentable {
     @Binding var isLoading: Bool
     
     private static let termsURL = "https://yandex.ru/legal/practicum_offer/ru/"
@@ -42,7 +42,7 @@ struct WebView: UIViewRepresentable {
         Coordinator(isLoading: $isLoading)
     }
     
-    class Coordinator: NSObject, WKNavigationDelegate {
+    final class Coordinator: NSObject, WKNavigationDelegate {
         @Binding var isLoading: Bool
         
         init(isLoading: Binding<Bool>) {

@@ -36,12 +36,12 @@ struct CarrierRouteCell: View {
                         VStack(alignment: .leading, spacing: Constants.transferInfoSpacing) {
                             Text(route.carrierName)
                                 .font(.system(size: Constants.titleFontSize))
-                                .foregroundColor(.black)
+                                .foregroundStyle(.black)
                             
                             if let transferStation = route.transferStation {
                                 Text("С пересадкой в \(transferStation)")
                                     .font(.system(size: Constants.subtitleFontSize))
-                                    .foregroundColor(DS.accentColor)
+                                    .foregroundStyle(DesignSystem.accentColor)
                             }
                         }
                         
@@ -51,7 +51,7 @@ struct CarrierRouteCell: View {
                     HStack(spacing: Constants.hStackSpacing) {
                         Text(route.departureTime)
                             .font(.system(size: Constants.titleFontSize))
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                         
                         ZStack {
                             Rectangle()
@@ -60,15 +60,15 @@ struct CarrierRouteCell: View {
                             
                             Text(route.duration)
                                 .font(.system(size: Constants.subtitleFontSize))
-                                .foregroundColor(.black)
+                                .foregroundStyle(.black)
                                 .tracking(0.4)
                                 .padding(.horizontal, Constants.timeLineHorizontalPadding)
-                                .background(DS.cellBackground)
+                                .background(DesignSystem.cellBackground)
                         }
                         
                         Text(route.arrivalTime)
                             .font(.system(size: Constants.titleFontSize))
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                     }
                     .frame(height: Constants.timeLineHeight)
                 }
@@ -78,14 +78,14 @@ struct CarrierRouteCell: View {
                 
                 Text(route.date)
                     .font(.system(size: Constants.subtitleFontSize))
-                    .foregroundColor(.black)
+                    .foregroundStyle(.black)
                     .tracking(0.4)
                     .padding(.top, Constants.dateTopPadding)
                     .padding(.trailing, Constants.dateTrailingPadding)
             }
             .frame(maxWidth: .infinity, minHeight: Constants.cellHeight, alignment: .leading)
-            .background(DS.cellBackground)
-            .cornerRadius(Constants.cellCornerRadius)
+            .background(DesignSystem.cellBackground)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.cellCornerRadius))
         }
         .padding(.horizontal, Constants.horizontalPadding)
         .padding(.top, Constants.topPadding)

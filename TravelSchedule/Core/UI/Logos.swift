@@ -12,11 +12,11 @@ enum ErrorLogos {
     static let serverError = "serverError_logo"
 }
 
-enum StoriesPictures{
-    static let SP1 = "storiesPic1"
-    static let SP2 = "storiesPic2"
-    static let SP3 = "storiesPic3"
-    static let SP4 = "storiesPic4"
-    static let SP5 = "storiesPic5"
-    static let SP6 = "storiesPic6"
+enum StoriesPictures {
+    static let story1 = "storiesPic1"
+    static let story2 = "storiesPic2"
+    static let story3 = "storiesPic3"
+    static let story4 = "storiesPic4"
+    static let story5 = "storiesPic5"
+    static let story6 = "storiesPic6"
 }

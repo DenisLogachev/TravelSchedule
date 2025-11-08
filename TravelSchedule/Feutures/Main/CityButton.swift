@@ -14,7 +14,7 @@ struct CityButton: View {
         Button(action: action) {
             HStack {
                 Text(title.isEmpty ? placeholder : title)
-                    .foregroundColor(title.isEmpty ? .gray : .black)
+                    .foregroundStyle(title.isEmpty ? .gray : .black)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 Spacer()

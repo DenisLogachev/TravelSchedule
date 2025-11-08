@@ -13,10 +13,10 @@ struct SearchButton: View {
         Button(action: action) {
             Text("Найти")
                 .font(.system(size: Constants.fontSize, weight: .bold))
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .frame(maxWidth: .infinity, minHeight: Constants.minHeight)
-                .background(DS.primaryAccent)
-                .cornerRadius(Constants.cornerRadius)
+                .background(DesignSystem.primaryAccent)
+                .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
         }
     }
 }

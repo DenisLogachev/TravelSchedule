@@ -1,5 +1,5 @@
-import OpenAPIRuntime
 import SwiftUI
+import OpenAPIRuntime
 import OpenAPIURLSession
 
 typealias AllStations = Components.Schemas.AllStationsResponse
@@ -11,6 +11,10 @@ protocol AllStationsServiceProtocol {
 final class AllStationsService: AllStationsServiceProtocol {
     private let client: Client
     private let apikey: String
+    
+    private enum Constants {
+        static let maxResponseSize = 50 * 1024 * 1024
+    }
 
     init(client: Client, apikey: String) {
         self.client = client
@@ -28,8 +32,7 @@ final class AllStationsService: AllStationsServiceProtocol {
             throw URLError(.cannotParseResponse)
         }
 
-        let limit = 50 * 1024 * 1024
-        let data = try await Data(collecting: body, upTo: limit)
+        let data = try await Data(collecting: body, upTo: Constants.maxResponseSize)
 
         let decoded = try JSONDecoder().decode(AllStations.self, from: data)
         return decoded

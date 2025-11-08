@@ -8,5 +8,3 @@ enum DesignSystem {
     static let accentColor = Color("accentColor")
 }
 
-typealias DS = DesignSystem
-

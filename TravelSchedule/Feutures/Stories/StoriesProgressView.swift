@@ -26,11 +26,11 @@ struct StoriesProgressView: View {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: Constants.progressBarCornerRadius)
                     .frame(width: geometry.size.width, height: Constants.progressBarHeight)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                 
                 RoundedRectangle(cornerRadius: Constants.progressBarCornerRadius)
                     .frame(width: progressWidth, height: Constants.progressBarHeight)
-                    .foregroundColor(DS.primaryAccent)
+                    .foregroundStyle(DesignSystem.primaryAccent)
                     .transaction { transaction in
                         transaction.animation = nil
                     }

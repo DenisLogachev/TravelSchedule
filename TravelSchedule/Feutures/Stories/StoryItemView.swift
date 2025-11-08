@@ -24,12 +24,12 @@ struct StoryItemView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: Constants.width, height: Constants.height)
                     .clipped()
-                    .cornerRadius(Constants.cornerRadius)
+                    .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
                     .opacity(isViewed ? Constants.viewedOpacity : 1.0)
                 
                 Text(story.title)
                     .font(.system(size: Constants.titleFontSize, weight: .regular))
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .tracking(Constants.titleLetterSpacing)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
@@ -42,7 +42,7 @@ struct StoryItemView: View {
                 Group {
                     if !isViewed {
                         RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                            .stroke(DS.primaryAccent, lineWidth: Constants.borderWidth)
+                            .stroke(DesignSystem.primaryAccent, lineWidth: Constants.borderWidth)
                     }
                 }
             )

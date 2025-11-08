@@ -16,7 +16,7 @@ struct StoriesView: View {
     private let stories = StoriesDataProvider.storiesForList
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal) {
             HStack(spacing: Constants.spacing) {
                 ForEach(stories) { story in
                     StoryItemView(
@@ -30,6 +30,7 @@ struct StoriesView: View {
             .padding(.horizontal, Constants.horizontalPadding)
             .padding(.vertical, Constants.verticalPadding)
         }
+        .scrollIndicators(.hidden)
     }
 }
 

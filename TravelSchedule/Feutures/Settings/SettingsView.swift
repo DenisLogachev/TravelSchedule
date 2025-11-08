@@ -1,12 +1,16 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject private var themeManager = ThemeManager.shared
+    @AppStorage(ThemeManager.appThemeKey) private var appThemeRawValue: String = AppTheme.light.rawValue
+    @StateObject private var themeManager = ThemeManager.shared
     
     private var isDarkTheme: Binding<Bool> {
         Binding(
             get: { themeManager.currentTheme == .dark },
-            set: { themeManager.currentTheme = $0 ? .dark : .light }
+            set: { newValue in
+                appThemeRawValue = newValue ? AppTheme.dark.rawValue : AppTheme.light.rawValue
+                themeManager.updateTheme(from: appThemeRawValue)
+            }
         )
     }
     
@@ -21,10 +25,9 @@ struct SettingsView: View {
                     Spacer()
                     
                     Toggle("", isOn: isDarkTheme)
-                        .tint(DS.primaryAccent)
+                        .tint(DesignSystem.primaryAccent)
                 }
-                .padding(.horizontal)
-                .padding(.top)
+                .padding([.horizontal, .top])
                 .padding(.bottom, 12)
                 
                 NavigationLink(destination: TermsOfServiceView()) {
@@ -47,18 +50,24 @@ struct SettingsView: View {
             VStack(spacing: 12) {
                 Text("Приложение использует API «Яндекс.Расписания»")
                     .font(.caption)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                     .tracking(0.4)
                 
                 Text("Версия 1.0 (beta)")
                     .font(.caption)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                     .tracking(0.4)
             }
             .padding(.bottom)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(DS.surface.ignoresSafeArea())
+        .background(DesignSystem.surface.ignoresSafeArea())
+        .onChange(of: appThemeRawValue) { newValue in
+            themeManager.updateTheme(from: newValue)
+        }
+        .onAppear {
+            themeManager.updateTheme(from: appThemeRawValue)
+        }
     }
 }
 

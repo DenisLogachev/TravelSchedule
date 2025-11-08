@@ -71,7 +71,7 @@ struct CarrierCardView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     ZStack {
-                        DS.surface
+                        DesignSystem.surface
                             .frame(maxWidth: .infinity)
                             .frame(height: Constants.imageHeight)
                         
@@ -82,14 +82,13 @@ struct CarrierCardView: View {
                             .frame(height: Constants.imageHeight)
                     }
                     
-                    // маска круглая, тк в макете нет других прямоугольных лого
                     .mask(Circle())
                     .padding(.top, Constants.imageTopPadding)
                     
                     VStack(spacing: Constants.vStackSpacing) {
                         Text(carrierFullName)
                             .font(.system(size: Constants.titleFontSize, weight: .bold))
-                            .foregroundColor(.primary)
+                            .foregroundStyle(.primary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         ContactInfoView(title: "E-mail", value: carrierEmail)
@@ -102,7 +101,7 @@ struct CarrierCardView: View {
                     .padding(.bottom, Constants.bottomPadding)
                 }
             }
-            .background(DS.surface.ignoresSafeArea())
+            .background(DesignSystem.surface.ignoresSafeArea())
         }
     }
 }

@@ -14,10 +14,10 @@ struct ContactInfoView: View {
         VStack(alignment: .leading, spacing: Constants.spacing) {
             Text(title)
                 .font(.system(size: Constants.titleFontSize))
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             Text(value)
                 .font(.system(size: Constants.valueFontSize))
-                .foregroundColor(DS.primaryAccent)
+                .foregroundStyle(DesignSystem.primaryAccent)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

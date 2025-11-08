@@ -27,7 +27,7 @@ struct StoryDetailView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .clipped()
-                    .cornerRadius(Constants.imageCornerRadius)
+                    .clipShape(RoundedRectangle(cornerRadius: Constants.imageCornerRadius))
                     .offset(y: dragOffset.height)
                     .contentShape(Rectangle())
                     .simultaneousGesture(
@@ -61,7 +61,7 @@ struct StoryDetailView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(story.title)
                             .font(.system(size: Constants.titleFontSize, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .tracking(Constants.titleLetterSpacing)
                             .lineLimit(2)
                             .fixedSize(horizontal: false, vertical: true)
@@ -71,7 +71,7 @@ struct StoryDetailView: View {
                         if let text = story.text {
                             Text(text)
                                 .font(.system(size: Constants.textFontSize, weight: .regular))
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .tracking(Constants.textLetterSpacing)
                                 .lineLimit(3)
                                 .multilineTextAlignment(.leading)
@@ -144,12 +144,12 @@ struct StoriesTabView: View {
                 }
             }
         }
-        .onChange(of: initialIndex) { oldValue, newValue in
+        .onChange(of: initialIndex) { newValue in
             if currentStoryIndex != newValue {
                 currentStoryIndex = newValue
             }
         }
-        .onChange(of: currentStoryIndex) { oldValue, newValue in
+        .onChange(of: currentStoryIndex) { newValue in
             if isReady {
                 onStoryChange(newValue)
             }

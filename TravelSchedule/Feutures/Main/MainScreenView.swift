@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MainScreenView: View {
-    
+    // MARK: - Properties
     @State private var fromCity: String = ""
     @State private var toCity: String = ""
     
@@ -13,6 +13,7 @@ struct MainScreenView: View {
     @State private var viewedStories: Set<Int> = []
     @State private var path: [Route] = []
     
+    // MARK: - Constants
     private enum Constants {
         static let horizontalPadding: CGFloat = 16
         static let storiesTopPadding: CGFloat = 24
@@ -21,10 +22,12 @@ struct MainScreenView: View {
         static let searchButtonTopPadding: CGFloat = 16
     }
     
+    // MARK: - Computed Properties
     private var isSearchButtonVisible: Bool {
         !fromCity.isEmpty && !toCity.isEmpty
     }
     
+    // MARK: - Body
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 0) {
@@ -56,7 +59,7 @@ struct MainScreenView: View {
                 
                 Spacer()
             }
-            .background(DS.surface.ignoresSafeArea())
+            .background(DesignSystem.surface.ignoresSafeArea())
             .toolbar(.visible, for: .tabBar)
             .navigationDestination(for: Route.self) { route in
                 switch route {

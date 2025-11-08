@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct FiltersView: View {
-    
+    // MARK: - Properties
     @Binding var filters: RouteFilters
     @Binding var path: [Route]
     
     @State private var selectedTimeRanges: Set<TimeRange> = []
-    @State private var showTransfers: Bool? = nil
+    @State private var showTransfers: Bool?
     
+    // MARK: - Constants
     private enum Constants {
         static let horizontalPadding: CGFloat = 16
         static let verticalPadding: CGFloat = 16
@@ -22,6 +23,12 @@ struct FiltersView: View {
         static let textTracking: CGFloat = -0.41
     }
     
+    // MARK: - Computed Properties
+    private var hasSelectedFilters: Bool {
+        !selectedTimeRanges.isEmpty || showTransfers != nil
+    }
+    
+    // MARK: - Body
     var body: some View {
         SelectionScreen(title: "", onDismiss: {
             if !hasSelectedFilters {
@@ -36,7 +43,7 @@ struct FiltersView: View {
                         VStack(alignment: .leading, spacing: Constants.itemSpacing) {
                             Text("Время отправления")
                                 .font(.system(size: Constants.titleFontSize, weight: .bold))
-                                .foregroundColor(.primary)
+                                .foregroundStyle(.primary)
                                 .padding(.horizontal, Constants.horizontalPadding)
                             
                             VStack(spacing: 0) {
@@ -45,7 +52,7 @@ struct FiltersView: View {
                                         Text("\(timeRange.label) \(timeRange.rawValue)")
                                             .font(.system(size: Constants.textFontSize))
                                             .tracking(Constants.textTracking)
-                                            .foregroundColor(.primary)
+                                            .foregroundStyle(.primary)
                                         
                                         Spacer()
                                         
@@ -69,7 +76,7 @@ struct FiltersView: View {
                         VStack(alignment: .leading, spacing: Constants.itemSpacing) {
                             Text("Показывать варианты с пересадками")
                                 .font(.system(size: Constants.titleFontSize, weight: .bold))
-                                .foregroundColor(.primary)
+                                .foregroundStyle(.primary)
                                 .padding(.horizontal, Constants.horizontalPadding)
                             
                             VStack(spacing: 0) {
@@ -77,7 +84,7 @@ struct FiltersView: View {
                                     Text("Да")
                                         .font(.system(size: Constants.textFontSize))
                                         .tracking(Constants.textTracking)
-                                        .foregroundColor(.primary)
+                                        .foregroundStyle(.primary)
                                     
                                     Spacer()
                                     
@@ -98,7 +105,7 @@ struct FiltersView: View {
                                     Text("Нет")
                                         .font(.system(size: Constants.textFontSize))
                                         .tracking(Constants.textTracking)
-                                        .foregroundColor(.primary)
+                                        .foregroundStyle(.primary)
                                     
                                     Spacer()
                                     
@@ -127,10 +134,10 @@ struct FiltersView: View {
                     } label: {
                         Text("Применить")
                             .font(.system(size: Constants.buttonFontSize, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, minHeight: Constants.buttonHeight)
-                            .background(DS.primaryAccent)
-                            .cornerRadius(Constants.buttonCornerRadius)
+                            .background(DesignSystem.primaryAccent)
+                            .clipShape(RoundedRectangle(cornerRadius: Constants.buttonCornerRadius))
                     }
                     .padding([.horizontal, .top, .bottom], Constants.horizontalPadding)
                 }
@@ -142,10 +149,7 @@ struct FiltersView: View {
         }
     }
     
-    private var hasSelectedFilters: Bool {
-        !selectedTimeRanges.isEmpty || showTransfers != nil
-    }
-    
+    // MARK: - Private Methods
     private func applyFilters() {
         filters.departureTimeRanges = selectedTimeRanges
         filters.showTransfers = showTransfers

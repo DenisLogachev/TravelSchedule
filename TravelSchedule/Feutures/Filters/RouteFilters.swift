@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RouteFilters: Equatable {
-    var showTransfers: Bool? = nil
+    var showTransfers: Bool?
     var departureTimeRanges: Set<TimeRange> = []
     
     var hasActiveFilters: Bool {

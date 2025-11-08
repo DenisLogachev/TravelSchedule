@@ -25,11 +25,11 @@ struct MainTabView: View {
             }
         }
         .tint(.primary)
-        .background(DS.surface.ignoresSafeArea())
+        .background(DesignSystem.surface.ignoresSafeArea())
         .overlay(
             Rectangle()
                 .frame(height: Constants.separatorHeight)
-                .foregroundColor(Color.gray.opacity(Constants.separatorOpacity))
+                .foregroundStyle(Color.gray.opacity(Constants.separatorOpacity))
                 .ignoresSafeArea(.container, edges: .horizontal)
                 .padding(.bottom, Constants.separatorBottomPadding),
             alignment: .bottom

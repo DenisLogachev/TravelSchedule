@@ -1,5 +1,5 @@
-import OpenAPIRuntime
 import SwiftUI
+import OpenAPIRuntime
 import OpenAPIURLSession
 
 typealias SearchResults = Components.Schemas.Segments
@@ -25,7 +25,7 @@ final class SearchService: SearchServiceProtocol {
             date: date
         ))
 
-        let searchResults = try response.ok.body.json 
+        let searchResults = try response.ok.body.json
         
         return searchResults
     }

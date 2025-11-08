@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class StoriesTimerManager: ObservableObject {
+final class StoriesTimerManager: ObservableObject {
     @Published var progress: Double = 0.0
     
     private var cancellable: Cancellable?

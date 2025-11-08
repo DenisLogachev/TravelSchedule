@@ -45,7 +45,7 @@ struct StoriesFullScreenView: View {
     
     var body: some View {
         ZStack {
-            DS.surface.ignoresSafeArea()
+            DesignSystem.surface.ignoresSafeArea()
             
             ZStack {
                 StoriesTabView(
@@ -90,7 +90,7 @@ struct StoriesFullScreenView: View {
                     }) {
                         Image(systemName: "multiply")
                             .font(.system(size: Constants.closeButtonIconSize, weight: .medium))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .frame(width: Constants.closeButtonSize, height: Constants.closeButtonSize)
                             .background(
                                 Circle()
@@ -110,16 +110,15 @@ struct StoriesFullScreenView: View {
         .onDisappear {
             timerManager.stop()
         }
-        .onChange(of: isPresented) { oldValue, newValue in
+        .onChange(of: isPresented) { newValue in
+            isInitializing = newValue
+            
             if newValue {
-                isInitializing = true
                 currentStoryIndex = initialIndex
                 if !viewedStories.contains(selectedStoryId) {
                     viewedStories.insert(selectedStoryId)
                     onStoryViewed(selectedStoryId)
                 }
-            } else {
-                isInitializing = false
             }
         }
     }

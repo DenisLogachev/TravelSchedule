@@ -26,7 +26,7 @@ struct SelectionScreen<Content: View>: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 22, weight: .medium))
-                        .foregroundColor(.primary)
+                        .foregroundStyle(.primary)
                 }
                 
                 Text(title)
@@ -36,12 +36,11 @@ struct SelectionScreen<Content: View>: View {
                 Spacer()
                     .frame(width: 24)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 16)
+            .padding([.horizontal, .top], 16)
             
             content()
         }
-        .background(DS.surface.ignoresSafeArea())
+        .background(DesignSystem.surface.ignoresSafeArea())
         .toolbar(.hidden, for: .navigationBar)
     }
 }

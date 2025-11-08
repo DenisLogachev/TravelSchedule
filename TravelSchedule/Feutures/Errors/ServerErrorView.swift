@@ -12,12 +12,12 @@ struct ServerErrorView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 70))
             Text("Ошибка сервера")
                 .font(.system(size: 24, weight: .bold))
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
             
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(DS.surface.ignoresSafeArea())
+        .background(DesignSystem.surface.ignoresSafeArea())
     }
 }
 
