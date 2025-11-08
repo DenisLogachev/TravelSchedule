@@ -57,36 +57,50 @@ struct CarrierCardView: View {
     }
     
     private enum Constants {
-        static let largeLogoSize: CGFloat = 104
         static let logoTopPadding: CGFloat = 24
         static let vStackSpacing: CGFloat = 24
         static let horizontalPadding: CGFloat = 16
         static let bottomPadding: CGFloat = 24
         static let titleFontSize: CGFloat = 24
+        static let imageHeight: CGFloat = 104
+        static let imageTopPadding: CGFloat = 29
     }
     
     var body: some View {
         SelectionScreen(title: "Информация о перевозчике") {
             ScrollView {
-                VStack(spacing: Constants.vStackSpacing) {
-                    CarrierLogoView(
-                        logoName: carrierLogo,
-                        size: Constants.largeLogoSize
-                    )
+                VStack(spacing: 0) {
+                    ZStack {
+                        DS.surface
+                            .frame(maxWidth: .infinity)
+                            .frame(height: Constants.imageHeight)
+                        
+                        Image(carrierLogo)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: Constants.imageHeight)
+                    }
+                    
+                    // маска круглая, тк в макете нет других прямоугольных лого
+                    .mask(Circle())
+                    .padding(.top, Constants.imageTopPadding)
+                    
+                    VStack(spacing: Constants.vStackSpacing) {
+                        Text(carrierFullName)
+                            .font(.system(size: Constants.titleFontSize, weight: .bold))
+                            .foregroundColor(.primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        ContactInfoView(title: "E-mail", value: carrierEmail)
+                        ContactInfoView(title: "Телефон", value: carrierPhone)
+                        
+                        Spacer()
+                    }
+                    .padding(.horizontal, Constants.horizontalPadding)
                     .padding(.top, Constants.logoTopPadding)
-                    
-                    Text(carrierFullName)
-                        .font(.system(size: Constants.titleFontSize, weight: .bold))
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    ContactInfoView(title: "E-mail", value: carrierEmail)
-                    ContactInfoView(title: "Телефон", value: carrierPhone)
-                    
-                    Spacer()
+                    .padding(.bottom, Constants.bottomPadding)
                 }
-                .padding(.horizontal, Constants.horizontalPadding)
-                .padding(.bottom, Constants.bottomPadding)
             }
             .background(DS.surface.ignoresSafeArea())
         }

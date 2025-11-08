@@ -7,7 +7,7 @@ struct ContactInfoView: View {
     private enum Constants {
         static let titleFontSize: CGFloat = 17
         static let valueFontSize: CGFloat = 12
-        static let spacing: CGFloat = 8
+        static let spacing: CGFloat = 0
     }
     
     var body: some View {
@@ -17,7 +17,7 @@ struct ContactInfoView: View {
                 .foregroundColor(.primary)
             Text(value)
                 .font(.system(size: Constants.valueFontSize))
-                .foregroundColor(.blue)
+                .foregroundColor(DS.primaryAccent)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

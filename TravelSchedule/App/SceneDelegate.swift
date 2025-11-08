@@ -12,6 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = ContentView()
         window.rootViewController = UIHostingController(rootView: contentView)
         self.window = window
+        ThemeManager.shared.applyTheme()
+        
         window.makeKeyAndVisible()
     }
 

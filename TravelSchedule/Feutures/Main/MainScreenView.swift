@@ -8,11 +8,15 @@ struct MainScreenView: View {
     @State private var showFromCitySelection = false
     @State private var showToCitySelection = false
     @State private var showCarriers = false
+    @State private var showStories = false
+    @State private var selectedStoryId: Int = 0
+    @State private var viewedStories: Set<Int> = []
     @State private var path: [Route] = []
     
     private enum Constants {
         static let horizontalPadding: CGFloat = 16
-        static let topPadding: CGFloat = 208
+        static let storiesTopPadding: CGFloat = 24
+        static let mainViewTopPadding: CGFloat = 24
         static let searchButtonWidth: CGFloat = 150
         static let searchButtonTopPadding: CGFloat = 16
     }
@@ -23,7 +27,16 @@ struct MainScreenView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            VStack {
+            VStack(spacing: 0) {
+                StoriesView(
+                    viewedStories: viewedStories,
+                    onStoryTap: { storyId in
+                        selectedStoryId = storyId
+                        showStories = true
+                    }
+                )
+                .padding(.top, Constants.storiesTopPadding)
+                
                 MainView(
                     fromCity: $fromCity,
                     toCity: $toCity,
@@ -31,7 +44,7 @@ struct MainScreenView: View {
                     showTo: { showToCitySelection = true }
                 )
                 .padding(.horizontal, Constants.horizontalPadding)
-                .padding(.top, Constants.topPadding)
+                .padding(.top, Constants.mainViewTopPadding)
                 
                 if isSearchButtonVisible {
                     SearchButton {
@@ -72,6 +85,15 @@ struct MainScreenView: View {
                     fromCity: fromCity,
                     toCity: toCity,
                     isPresented: $showCarriers
+                )
+            }
+            .fullScreenCover(isPresented: $showStories) {
+                StoriesFullScreenView(
+                    isPresented: $showStories,
+                    selectedStoryId: selectedStoryId,
+                    onStoryViewed: { storyId in
+                        viewedStories.insert(storyId)
+                    }
                 )
             }
         }
