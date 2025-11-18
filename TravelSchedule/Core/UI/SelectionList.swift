@@ -21,7 +21,7 @@ struct SelectionList: View {
     init(
         items: [String],
         searchText: Binding<String>,
-        onItemSelected: @escaping (String) -> Void,
+        onItemSelected: @escaping @Sendable (String) -> Void,
         showChevron: Bool = false,
         emptyMessage: String = "Не найдено"
     ) {

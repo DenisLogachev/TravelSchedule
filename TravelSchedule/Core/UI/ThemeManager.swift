@@ -35,13 +35,23 @@ final class ThemeManager: ObservableObject {
     }
     
     func applyTheme() {
-        DispatchQueue.main.async {
-            UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap { $0.windows }
-                .forEach { window in
-                    window.overrideUserInterfaceStyle = self.currentTheme.userInterfaceStyle
-                }
+        Task { @MainActor in
+            await applyThemeAsync()
+        }
+    }
+    
+    @MainActor
+    private func applyThemeAsync() async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            DispatchQueue.main.async {
+                UIApplication.shared.connectedScenes
+                    .compactMap { $0 as? UIWindowScene }
+                    .flatMap { $0.windows }
+                    .forEach { window in
+                        window.overrideUserInterfaceStyle = self.currentTheme.userInterfaceStyle
+                    }
+                continuation.resume()
+            }
         }
     }
     
