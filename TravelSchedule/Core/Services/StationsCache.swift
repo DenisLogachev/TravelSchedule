@@ -12,6 +12,14 @@ class StationsCache: CacheProtocol {
     private var loadingTask: Task<AllStations, Error>?
     private let citiesExtractor: CitiesExtractorProtocol
     
+    var hasCachedData: Bool {
+        cachedAllStations != nil
+    }
+    
+    var isCurrentlyLoading: Bool {
+        isLoading
+    }
+    
     // MARK: - Initialization
     private init(citiesExtractor: CitiesExtractorProtocol = CitiesExtractor()) {
         self.citiesExtractor = citiesExtractor
@@ -51,14 +59,6 @@ class StationsCache: CacheProtocol {
         
         cachedCities = cities
         return cities
-    }
-    
-    var hasCachedData: Bool {
-        cachedAllStations != nil
-    }
-    
-    var isCurrentlyLoading: Bool {
-        isLoading
     }
     
     func findCityCode(by cityName: String, using networkClient: NetworkClientProtocol) async throws -> String? {

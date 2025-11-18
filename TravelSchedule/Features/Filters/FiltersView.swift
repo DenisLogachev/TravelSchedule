@@ -37,7 +37,7 @@ struct FiltersView: View {
             }
             path.removeLast()
         }) {
-            VStack(spacing: 0) {
+            VStack(spacing: .zero) {
                 ScrollView {
                     VStack(spacing: Constants.sectionSpacing) {
                         VStack(alignment: .leading, spacing: Constants.itemSpacing) {
@@ -79,7 +79,7 @@ struct FiltersView: View {
                                 .foregroundStyle(.primary)
                                 .padding(.horizontal, Constants.horizontalPadding)
                             
-                            VStack(spacing: 0) {
+                            VStack(spacing: .zero) {
                                 HStack {
                                     Text("Да")
                                         .font(.system(size: Constants.textFontSize))

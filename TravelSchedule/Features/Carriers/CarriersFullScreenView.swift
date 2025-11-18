@@ -13,8 +13,8 @@ struct CarriersFullScreenView: View {
             CarriersListView(
                 fromCity: fromCity,
                 toCity: toCity,
-                path: $path,
                 isPresented: $isPresented,
+                path: $path,
                 filters: $filters
             )
             .navigationDestination(for: Route.self) { route in

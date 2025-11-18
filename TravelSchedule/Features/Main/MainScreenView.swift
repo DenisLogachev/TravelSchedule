@@ -23,7 +23,7 @@ struct MainScreenView: View {
     // MARK: - Body
     var body: some View {
         NavigationStack(path: $path) {
-            VStack(spacing: 0) {
+            VStack(spacing: .zero) {
                 StoriesView(
                     viewedStories: viewModel.viewedStories,
                     onStoryTap: { storyId in

@@ -60,7 +60,7 @@ struct SelectionList: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             SearchField(text: $searchText)
                 .padding([.horizontal, .top], Constants.horizontalPadding)
             
@@ -91,12 +91,12 @@ struct SelectionList: View {
                 }
             }
         }
-        .onChange(of: searchText) { newValue in
+        .onChange(of: searchText) {
             debounceTask?.cancel()
             debounceTask = Task {
                 try? await Task.sleep(nanoseconds: UInt64(Constants.debounceDelay * 1_000_000_000))
                 if !Task.isCancelled {
-                    debouncedSearchText = newValue
+                    debouncedSearchText = searchText
                 }
             }
         }

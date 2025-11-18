@@ -40,7 +40,7 @@ struct CarrierCardView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView {
-                    VStack(spacing: 0) {
+                    VStack(spacing: .zero) {
                         CarrierLogoView(
                             logoURL: viewModel.carrierLogoURL,
                             height: Constants.imageHeight,
@@ -71,7 +71,7 @@ struct CarrierCardView: View {
         .task {
             await viewModel.loadCarrierInfo()
         }
-        .onChange(of: viewModel.appError) { error in
+        .onChange(of: viewModel.appError) {
             if let route = viewModel.getErrorRoute(), !path.contains(route) {
                 path.append(route)
             }

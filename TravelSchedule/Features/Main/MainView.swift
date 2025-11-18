@@ -21,7 +21,7 @@ struct MainView: View {
     
     var body: some View {
         HStack(spacing: Constants.hStackSpacing) {
-            VStack(spacing: 0) {
+            VStack(spacing: .zero) {
                 CityButton(
                     title: fromCity,
                     placeholder: "Откуда",

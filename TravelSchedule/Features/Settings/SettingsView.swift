@@ -16,7 +16,7 @@ struct SettingsView: View {
     
     var body: some View {
         VStack {
-            VStack(spacing: 0) {
+            VStack(spacing: .zero) {
                 HStack {
                     Text("Темная тема")
                         .font(.system(size: 17))

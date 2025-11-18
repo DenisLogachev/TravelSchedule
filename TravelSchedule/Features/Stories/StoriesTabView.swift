@@ -144,14 +144,14 @@ struct StoriesTabView: View {
                 currentStoryIndex = initialIndex
             }
         }
-        .onChange(of: initialIndex) { newValue in
-            if currentStoryIndex != newValue {
-                currentStoryIndex = newValue
+        .onChange(of: initialIndex) {
+            if currentStoryIndex != initialIndex {
+                currentStoryIndex = initialIndex
             }
         }
-        .onChange(of: currentStoryIndex) { newValue in
+        .onChange(of: currentStoryIndex) {
             if isReady {
-                onStoryChange(newValue)
+                onStoryChange(currentStoryIndex)
             }
         }
     }

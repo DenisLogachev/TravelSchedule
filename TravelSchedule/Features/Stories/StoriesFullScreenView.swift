@@ -116,10 +116,10 @@ struct StoriesFullScreenView: View {
             timerManager.stop()
             timerManager.onProgressComplete = nil
         }
-        .onChange(of: isPresented) { newValue in
-            isInitializing = newValue
+        .onChange(of: isPresented) {
+            isInitializing = isPresented
             
-            if newValue {
+            if isPresented {
                 currentStoryIndex = initialIndex
                 if !viewedStories.contains(selectedStoryId) {
                     viewedStories.insert(selectedStoryId)

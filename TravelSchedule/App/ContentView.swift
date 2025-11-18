@@ -10,8 +10,8 @@ struct ContentView: View {
                 themeManager.updateTheme(from: appThemeRawValue)
                 themeManager.applyTheme()
             }
-            .onChange(of: appThemeRawValue) { newValue in
-                themeManager.updateTheme(from: newValue)
+            .onChange(of: appThemeRawValue) {
+                themeManager.updateTheme(from: appThemeRawValue)
             }
     }
 }

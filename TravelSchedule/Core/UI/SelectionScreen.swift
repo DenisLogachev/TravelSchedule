@@ -8,14 +8,14 @@ struct SelectionScreen<Content: View>: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    init(title: String, onDismiss: (@Sendable () -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) {
+    init(title: String, onDismiss: (() -> Void)? = nil, @ViewBuilder content: @escaping () -> Content) {
         self.title = title
         self.onDismiss = onDismiss
         self.content = content
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             HStack {
                 Button {
                     if let onDismiss = onDismiss {

@@ -2,11 +2,23 @@ import Foundation
 import OpenAPIRuntime
 import OpenAPIURLSession
 
-final class AllStationsService: BaseService {
+final class AllStationsService {
+    // MARK: - Constants
     private enum Constants {
         static let maxResponseSize = 50 * 1024 * 1024
     }
+    
+    // MARK: - Properties
+    private let client: Client
+    private let apikey: String
+    
+    // MARK: - Initialization
+    init(client: Client, apikey: String) {
+        self.client = client
+        self.apikey = apikey
+    }
 
+    // MARK: - Public Methods
     func getAllStations() async throws -> AllStations {
         let response = try await client.getAllStations(query: .init(apikey: apikey))
 

@@ -35,7 +35,7 @@ struct CitySelectionView: View {
         .task {
             await viewModel.loadCities()
         }
-        .onChange(of: viewModel.appError) { error in
+        .onChange(of: viewModel.appError) {
             if let route = viewModel.getErrorRoute(), !path.contains(route) {
                 path.append(route)
             }
