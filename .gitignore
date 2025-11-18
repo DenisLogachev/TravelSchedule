@@ -16,9 +16,12 @@ xcuserdata/
 
 # Swift Package Manager
 .build/
+.swiftpm/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
 
 # CocoaPods
 Pods/
+Podfile.lock
 
 # Carthage
 Carthage/Build/
@@ -31,3 +34,13 @@ fastlane/test_output
 
 # Archives
 *.xcarchive
+*.ipa
+*.dSYM.zip
+*.app.dSYM
+
+# Compiled apps
+*.app
+
+# Other
+*.hmap
+.idea/

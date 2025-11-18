@@ -1,26 +1,24 @@
-import SwiftUI
+import Foundation
 import OpenAPIRuntime
 import OpenAPIURLSession
 
-typealias AllStations = Components.Schemas.AllStationsResponse
-
-protocol AllStationsServiceProtocol {
-    func getAllStations() async throws -> AllStations
-}
-
-final class AllStationsService: AllStationsServiceProtocol {
-    private let client: Client
-    private let apikey: String
-    
+final class AllStationsService {
+    // MARK: - Constants
     private enum Constants {
         static let maxResponseSize = 50 * 1024 * 1024
     }
-
+    
+    // MARK: - Properties
+    private let client: Client
+    private let apikey: String
+    
+    // MARK: - Initialization
     init(client: Client, apikey: String) {
         self.client = client
         self.apikey = apikey
     }
 
+    // MARK: - Public Methods
     func getAllStations() async throws -> AllStations {
         let response = try await client.getAllStations(query: .init(apikey: apikey))
 
@@ -33,8 +31,6 @@ final class AllStationsService: AllStationsServiceProtocol {
         }
 
         let data = try await Data(collecting: body, upTo: Constants.maxResponseSize)
-
-        let decoded = try JSONDecoder().decode(AllStations.self, from: data)
-        return decoded
+        return try JSONDecoder().decode(AllStations.self, from: data)
     }
 }

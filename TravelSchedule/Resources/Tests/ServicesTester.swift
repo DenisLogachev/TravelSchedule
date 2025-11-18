@@ -1,16 +1,22 @@
 import Foundation
+import OpenAPIRuntime
 import OpenAPIURLSession
 
 final class ServicesTester {
-    private let client: Client
-    private let apikey: String
+    private let networkClient: NetworkClient
     
     init() throws {
-        self.client = Client(
+        let client = Client(
             serverURL: try Servers.Server1.url(),
             transport: URLSessionTransport()
         )
-        self.apikey = "3fabcef5-5915-4b34-bd2e-11a53bb31588"
+        
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "YandexScheduleAPIKey") as? String,
+              !apiKey.isEmpty else {
+            throw NSError(domain: "ServicesTester", code: 1, userInfo: [NSLocalizedDescriptionKey: "YandexScheduleAPIKey not found in Info.plist"])
+        }
+        
+        self.networkClient = NetworkClient(client: client, apikey: apiKey)
     }
     
     // MARK: - Public
@@ -30,16 +36,14 @@ final class ServicesTester {
     // MARK: - Private service tests
     private func testSearchService() async {
         await run("SearchService") {
-            let service = SearchService(client: self.client, apikey: self.apikey)
-            let result = try await service.searchRoutes(from: "s9637148", to: "s9654496")
+            let result = try await self.networkClient.searchRoutes(from: "s9637148", to: "s9654496")
             print("Найдено маршрутов: \(result.segments?.count ?? 0)")
         }
     }
     
     private func testScheduleService() async {
         await run("ScheduleService") {
-            let service = ScheduleService(client: self.client, apikey: self.apikey)
-            let result = try await service.getStationSchedule(station: "s9602496")
+            let result = try await self.networkClient.getStationSchedule(station: "s9602496")
             
             if let schedule = result.schedule, !schedule.isEmpty {
                 for item in schedule.prefix(5) {
@@ -64,24 +68,21 @@ final class ServicesTester {
     
     private func testThreadService() async {
         await run("ThreadService") {
-            let service = ThreadService(client: self.client, apikey: self.apikey)
-            let result = try await service.getRouteStations(uid: "6509_1_9602496_g25_4")
+            let result = try await self.networkClient.getRouteStations(uid: "6509_1_9602496_g25_4")
             print("Количество остановок: \(result.stops?.count ?? 0)")
         }
     }
     
     private func testNearestCityService() async {
         await run("NearestCityService") {
-            let service = NearestCityService(client: self.client, apikey: self.apikey)
-            let result = try await service.getNearestCity(lat: 59.864177, lng: 30.319163)
+            let result = try await self.networkClient.getNearestCity(lat: 59.864177, lng: 30.319163)
             print("Ближайший город: \(result.title ?? "-")")
         }
     }
     
     private func testCarrierService() async {
         await run("CarrierService") {
-            let service = CarrierService(client: self.client, apikey: self.apikey)
-            let result = try await service.getCarrierInfo(code: "112")
+            let result = try await self.networkClient.getCarrierInfo(code: "112")
             if let firstCarrier = result.carriers?.first {
                 print("Carrier: \(firstCarrier.title ?? "-")")
             } else {
@@ -89,26 +90,24 @@ final class ServicesTester {
             }
         }
     }
+    
     private func testCopyrightService() async {
         await run("CopyrightService") {
-            let service = CopyrightService(client: self.client, apikey: self.apikey)
-            let result = try await service.getCopyright()
+            let result = try await self.networkClient.getCopyright()
             print("Copyright: \(result.copyright?.text ?? "-")")
         }
     }
     
     private func testAllStationsService() async {
         await run("AllStationsService") {
-            let service = AllStationsService(client: self.client, apikey: self.apikey)
-            let result = try await service.getAllStations()
+            let result = try await self.networkClient.getAllStations()
             print("Всего станций: \(result.countries?.count ?? 0)")
         }
     }
     
     private func testNearestStationsService() async {
         await run("NearestStationsService") {
-            let service = NearestStationsService(client: self.client, apikey: self.apikey)
-            let result = try await service.getNearestStations(
+            let result = try await self.networkClient.getNearestStations(
                 lat: 59.864177,
                 lng: 30.319163,
                 distance: 50

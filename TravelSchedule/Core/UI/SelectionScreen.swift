@@ -15,7 +15,7 @@ struct SelectionScreen<Content: View>: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             HStack {
                 Button {
                     if let onDismiss = onDismiss {
